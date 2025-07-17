@@ -104,8 +104,3 @@ class BackendInterface:
         if isinstance(result, ParallelGraph):
             return result.graph_object
         return result
-
-    @classmethod
-    def should_run(cls, name, args, kwargs):
-        """Should this backend run the specified algorithms with the given arguments?"""
-        return getattr(cls, name).should_run(*args, **kwargs)
