@@ -46,6 +46,7 @@ def test_get_functions_with_get_chunks():
         "betweenness_centrality",
         "closeness_vitality",
         "edge_betweenness_centrality",
+        "harmonic_centrality",
         "is_reachable",
         "johnson",
         "local_efficiency",
