@@ -33,6 +33,7 @@ def test_get_functions_with_get_chunks():
     # TODO: Instead of `expected` use ALGORTHMS from interface.py
     # take care of functions like `connectivity.all_pairs_node_connectivity`
     expected = {
+        "adamic_adar_index",
         "all_pairs_all_shortest_paths",
         "all_pairs_bellman_ford_path",
         "all_pairs_bellman_ford_path_length",
@@ -47,10 +48,13 @@ def test_get_functions_with_get_chunks():
         "closeness_vitality",
         "edge_betweenness_centrality",
         "is_reachable",
+        "jaccard_coefficient",
         "johnson",
         "local_efficiency",
         "node_redundancy",
         "number_of_isolates",
+        "preferential_attachment",
+        "resource_allocation_index",
         "square_clustering",
         "tournament_is_strongly_connected",
     }
