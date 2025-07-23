@@ -46,6 +46,7 @@ def test_get_functions_with_get_chunks():
         "approximate_all_pairs_node_connectivity",
         "betweenness_centrality",
         "closeness_vitality",
+        "cn_soundarajan_hopcroft",
         "common_neighbor_centrality",
         "edge_betweenness_centrality",
         "is_reachable",
@@ -55,9 +56,11 @@ def test_get_functions_with_get_chunks():
         "node_redundancy",
         "number_of_isolates",
         "preferential_attachment",
+        "ra_index_soundarajan_hopcroft",
         "resource_allocation_index",
         "square_clustering",
         "tournament_is_strongly_connected",
+        "within_inter_cluster",
     }
     assert set(get_functions_with_get_chunks()) == expected
 
