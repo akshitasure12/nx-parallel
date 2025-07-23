@@ -20,6 +20,7 @@ ALGORITHMS = [
     "jaccard_coefficient",
     "adamic_adar_index",
     "preferential_attachment",
+    "common_neighbor_centrality",
     # Centrality
     "betweenness_centrality",
     "edge_betweenness_centrality",

@@ -46,6 +46,7 @@ def test_get_functions_with_get_chunks():
         "approximate_all_pairs_node_connectivity",
         "betweenness_centrality",
         "closeness_vitality",
+        "common_neighbor_centrality",
         "edge_betweenness_centrality",
         "is_reachable",
         "jaccard_coefficient",
