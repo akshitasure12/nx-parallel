@@ -10,7 +10,6 @@ import networkx as nx
 import pytest
 
 import nx_parallel as nxp
-from nx_parallel.interface import ALGORITHMS
 
 
 def get_functions_with_get_chunks(ignore_funcs=[], package_name="nx_parallel"):
@@ -31,7 +30,30 @@ def get_functions_with_get_chunks(ignore_funcs=[], package_name="nx_parallel"):
 
 
 def test_get_functions_with_get_chunks():
-    expected = {attr.rsplit(".", 1)[-1] for attr in ALGORITHMS}
+    # TODO: Instead of `expected` use ALGORTHMS from interface.py
+    # take care of functions like `connectivity.all_pairs_node_connectivity`
+    expected = {
+        "all_pairs_all_shortest_paths",
+        "all_pairs_bellman_ford_path",
+        "all_pairs_bellman_ford_path_length",
+        "all_pairs_dijkstra",
+        "all_pairs_dijkstra_path",
+        "all_pairs_dijkstra_path_length",
+        "all_pairs_node_connectivity",
+        "all_pairs_shortest_path",
+        "all_pairs_shortest_path_length",
+        "approximate_all_pairs_node_connectivity",
+        "betweenness_centrality",
+        "closeness_vitality",
+        "edge_betweenness_centrality",
+        "is_reachable",
+        "johnson",
+        "local_efficiency",
+        "node_redundancy",
+        "number_of_isolates",
+        "square_clustering",
+        "tournament_is_strongly_connected",
+    }
     assert set(get_functions_with_get_chunks()) == expected
 
 
