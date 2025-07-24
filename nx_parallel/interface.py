@@ -99,5 +99,25 @@ class BackendInterface:
 
     @classmethod
     def should_run(cls, name, args, kwargs):
-        """Should this backend run the specified algorithms with the given arguments?"""
+        """Determine whether this backend should run the specified algorithm
+        with the given arguments.
+
+        Parameters
+        ----------
+        cls : type
+            The `BackendInterface` class. Used to retrieve the algorithm
+            identified by `name`.
+        name : str
+            The name of the algorithm to check.
+        args : tuple
+            Positional arguments to be passed to the algorithm's `should_run`.
+        kwargs : dict
+            Keyword arguments to be passed to the algorithm's `should_run`.
+
+        Returns
+        -------
+        bool or str
+            If the algorithm should run, returns True.
+            If it should not run, returns a string explaining why parallel execution is skipped.
+        """
         return getattr(cls, name).should_run(*args, **kwargs)
