@@ -56,11 +56,6 @@ def test_get_chunks(func):
         "betweenness_centrality",
         "edge_betweenness_centrality",
     ]
-    not_implemented_undirected = [
-        "number_attracting_components",
-        "number_weakly_connected_components",
-        "number_strongly_connected_components",
-    ]
 
     if func in tournament_funcs:
         G = nx.tournament.random_tournament(15, seed=42)
@@ -69,9 +64,7 @@ def test_get_chunks(func):
         c2 = getattr(nxp, func)(H, get_chunks=random_chunking)
         assert c1 == c2
     else:
-        G = nx.fast_gnp_random_graph(
-            40, 0.6, seed=42, directed=func in not_implemented_undirected
-        )
+        G = nx.fast_gnp_random_graph(40, 0.6, seed=42)
         H = nxp.ParallelGraph(G)
         c1 = getattr(nxp, func)(H)
         c2 = getattr(nxp, func)(H, get_chunks=random_chunking)
