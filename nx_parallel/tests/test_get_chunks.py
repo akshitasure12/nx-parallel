@@ -56,7 +56,7 @@ def test_get_chunks(func):
         "betweenness_centrality",
         "edge_betweenness_centrality",
     ]
-    dag_chk_list_vals = [
+    not_implemented_undirected = [
         "colliders",
         "v_structures",
     ]
@@ -68,30 +68,30 @@ def test_get_chunks(func):
         c2 = getattr(nxp, func)(H, get_chunks=random_chunking)
         assert c1 == c2
     else:
-        G = nx.fast_gnp_random_graph(40, 0.6, seed=42)
-        if func in dag_chk_list_vals:
-            G_dir = nx.DiGraph(G)
-            H_dir = nxp.ParallelGraph(G_dir)
-            c1 = getattr(nxp, func)(H_dir)
-            c2 = getattr(nxp, func)(H_dir, get_chunks=random_chunking)
-            assert sorted(c1) == sorted(c2)
-        else:
-            H = nxp.ParallelGraph(G)
-            c1 = getattr(nxp, func)(H)
-            c2 = getattr(nxp, func)(H, get_chunks=random_chunking)
-            if isinstance(c1, types.GeneratorType):
-                c1, c2 = dict(c1), dict(c2)
-                if func in check_dict_values_close:
-                    for key in c1:
-                        assert math.isclose(c1[key], c2[key], abs_tol=1e-16)
-                else:
-                    assert c1 == c2
+        G = nx.fast_gnp_random_graph(
+            40, 0.6, seed=42, directed=func in not_implemented_undirected
+        )
+        H = nxp.ParallelGraph(G)
+        c1 = getattr(nxp, func)(H)
+        c2 = getattr(nxp, func)(H, get_chunks=random_chunking)
+        if isinstance(c1, types.GeneratorType):
+            c1, c2 = list(c1), list(c2)
+            try:
+                c1_dict, c2_dict = dict(c1), dict(c2)
+            except ValueError:
+                assert sorted(c1) == sorted(c2)
             else:
                 if func in check_dict_values_close:
-                    for key in c1:
-                        assert math.isclose(c1[key], c2[key], abs_tol=1e-16)
+                    for key in c1_dict:
+                        assert math.isclose(c1_dict[key], c2_dict[key], abs_tol=1e-16)
                 else:
-                    if isinstance(c1, float):
-                        assert math.isclose(c1, c2, abs_tol=1e-16)
-                    else:
-                        assert c1 == c2
+                    assert c1_dict == c2_dict
+        else:
+            if func in check_dict_values_close:
+                for key in c1:
+                    assert math.isclose(c1[key], c2[key], abs_tol=1e-16)
+            else:
+                if isinstance(c1, float):
+                    assert math.isclose(c1, c2, abs_tol=1e-16)
+                else:
+                    assert c1 == c2
